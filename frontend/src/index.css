@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,500;1,400&display=swap');
+@import 'tailwindcss';
+
+@theme {
+	--font-sans: 'Inter', sans-serif;
+	--font-serif-display: 'Noto Serif', serif;
+}
+
+html {
+	scroll-behavior: smooth;
+	overflow-x: hidden;
+}
+
+body {
+	margin: 0;
+	background-color: #050c18;
+	color: #dfe6f4;
+	overflow-x: hidden;
+}
+
+#root {
+	overflow-x: hidden;
+}
+
+.font-serif-display {
+	font-family: var(--font-serif-display);
+}
+
+.grain-overlay {
+	background-image: radial-gradient(rgba(255, 255, 255, 0.07) 0.5px, transparent 0.5px);
+	background-size: 3px 3px;
+	opacity: 0.08;
+	pointer-events: none;
+}
+
+.fade-up {
+	animation: fadeUp 700ms ease both;
+}
+
+@keyframes fadeUp {
+	from {
+		opacity: 0;
+		transform: translateY(14px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
