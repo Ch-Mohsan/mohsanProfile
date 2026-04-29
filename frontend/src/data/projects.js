@@ -1,5 +1,17 @@
 export const projects = [
   {
+    title: 'Think Code Attendance System',
+    description:
+      'A web-based attendance management system that allows users to mark attendance, view attendance records, and generate reports for efficient attendance tracking.',
+    image:
+      'ATT.png',
+    techStack: ['React', 'Node.js', 'MongoDB'],
+    liveLink: 'https://attendance-system-frontend-beta.vercel.app/dashboard',
+    githubLink: 'https://github.com/Ch-Mohsan/Attendance-System',
+    year: '2026',
+    status: 'Completed',
+  },
+  {
     title: 'Car Booking System',
     description:
       'A web-based vehicle booking platform that allows users to browse available cars, manage bookings, and streamline reservation workflows.',
