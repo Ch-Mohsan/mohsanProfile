@@ -16,7 +16,7 @@ function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_56%,rgba(107,146,211,0.35),transparent_34%),radial-gradient(circle_at_20%_25%,rgba(14,24,49,0.8),transparent_48%)]" />
       <div className="grain-overlay absolute inset-0" />
 
-      <div className="relative mx-auto flex min-h-screen w-[min(1260px,92%)] items-center justify-center py-24">
+      <div className="relative mx-auto flex w-[min(1260px,92%)] items-start justify-center pt-30 pb-10 md:min-h-screen md:items-center md:py-30">
         <Motion.div
           className="max-w-2xl text-center"
           initial={{ opacity: 0, y: 36 }}
