@@ -41,13 +41,23 @@ const contactOptions = [
   },
 ]
 
-function Contact() {
+function Contact({ compact = false }) {
   const { duration, delay } = useResponsiveMotion()
 
+  const wrapperClasses = compact ? 'py-0' : 'border-b border-[#1a2334] py-20 md:py-28'
+  const containerClasses = compact ? 'w-full text-center' : 'mx-auto w-[min(1260px,92%)] text-center'
+  const titleClasses = compact ? 'font-serif-display text-xl text-[#f3f7ff] md:text-2xl' : 'font-serif-display text-2xl text-[#f3f7ff] md:text-[34px]'
+  const kickerClasses = compact
+    ? 'mb-2 text-[9px] font-semibold uppercase tracking-[0.22em] text-[#be9e61]'
+    : 'mb-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#be9e61]'
+  const listClasses = compact
+    ? 'mt-7 flex flex-wrap items-center justify-center gap-5 text-xs text-[#9eabc4]'
+    : 'mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-[#9eabc4]'
+
   return (
-    <section id="contact" className="border-b border-[#1a2334] py-20 md:py-28">
+    <section id="contact" className={wrapperClasses}>
       <Motion.div
-        className="mx-auto w-[min(1260px,92%)] text-center"
+        className={containerClasses}
         initial={{ opacity: 0, y: 26 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
@@ -57,9 +67,9 @@ function Contact() {
           ease: [0.22, 1, 0.36, 1],
         }}
       >
-        <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#be9e61]">Start a Conversation</p>
-        <h2 className="font-serif-display text-2xl text-[#f3f7ff] md:text-[34px]">Let us build something enduring.</h2>
-        <ul className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-[#9eabc4]">
+        <p className={kickerClasses}>Start a Conversation</p>
+        <h2 className={titleClasses}>Let us build something enduring.</h2>
+        <ul className={listClasses}>
           {contactOptions.map((link) => {
             const isExternal = link.href.startsWith('http') || link.href.startsWith('mailto:')
             const isDownload = Boolean(link.download)

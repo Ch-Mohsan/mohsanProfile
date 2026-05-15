@@ -60,7 +60,7 @@ function Skills() {
               <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#be9e61]">
                 {group.index} / {group.category}
               </p>
-              <ul className="space-y-2.5">
+              <ul className="grid grid-cols-2 gap-x-8 gap-y-2.5 md:grid-cols-1">
                 {group.items.map((item) => (
                   <li key={`${group.category}-${item}`} className="font-serif-display text-lg text-[#eef2fb]">
                     {item}

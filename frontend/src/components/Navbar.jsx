@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { AnimatePresence, motion as Motion } from 'framer-motion'
 
 const navLinks = [
   { label: 'Home', href: '#home', id: 'home' },
@@ -44,7 +45,7 @@ function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-[#1a2334]/80 bg-[#050c18]/85 backdrop-blur-xl">
       <nav className="mx-auto flex h-[72px] w-[min(1260px,92%)] items-center justify-between">
         <a href="#home" className="font-serif-display text-sm tracking-wide text-[#f5f7fb] md:text-base">
-         MZ ARCHIVE
+          Mohsan Ali Zafar
         </a>
 
         <button
@@ -71,32 +72,36 @@ function Navbar() {
             </li>
           ))}
         </ul>
-
-        <a
-          href="#contact"
-          className="hidden border border-[#d4d8e3] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#f4f7ff] transition hover:border-[#be9e61] hover:text-[#f0d8a8] md:inline-flex"
-        >
-          Connect
-        </a>
       </nav>
 
-      {isMenuOpen ? (
-        <ul className="mx-auto w-[min(1260px,92%)] space-y-4 border-t border-[#1d2737] py-5 md:hidden">
-          {navLinks.map((link) => (
-            <li key={link.id}>
-              <a
-                href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                className={`block text-[10px] uppercase tracking-[0.2em] transition ${
-                  activeSection === link.id ? 'text-[#f2d9a4]' : 'text-[#b0b9cc]'
-                }`}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      <AnimatePresence initial={false}>
+        {isMenuOpen ? (
+          <Motion.div
+            key="mobile-menu"
+            className="overflow-hidden md:hidden"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <ul className="mx-auto w-[min(1260px,92%)] space-y-4 border-t border-[#1d2737] py-5">
+              {navLinks.map((link) => (
+                <li key={link.id}>
+                  <a
+                    href={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`block text-[10px] uppercase tracking-[0.2em] transition ${
+                      activeSection === link.id ? 'text-[#f2d9a4]' : 'text-[#b0b9cc]'
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Motion.div>
+        ) : null}
+      </AnimatePresence>
     </header>
   )
 }
