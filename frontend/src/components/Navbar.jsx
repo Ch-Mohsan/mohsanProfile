@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion as Motion } from 'framer-motion'
 
 const navLinks = [
@@ -13,6 +13,34 @@ const navLinks = [
 function Navbar() {
   const [activeSection, setActiveSection] = useState('home')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const headerRef = useRef(null)
+
+  const scrollToSection = useCallback((sectionId) => {
+    const element = document.getElementById(sectionId)
+    if (!element) return
+
+    const headerHeight = headerRef.current?.offsetHeight ?? 72
+    const top = element.getBoundingClientRect().top + window.scrollY - headerHeight
+    window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' })
+  }, [])
+
+  const handleNavClick = useCallback(
+    (event, sectionId) => {
+      event?.preventDefault?.()
+
+      // Keep the URL hash in sync (useful for refresh / share).
+      if (typeof window !== 'undefined') {
+        window.history.pushState(null, '', `#${sectionId}`)
+      }
+
+      const scrollDelayMs = isMenuOpen ? 220 : 0
+      setIsMenuOpen(false)
+      // Framer Motion's height animations can temporarily reset scroll position on mobile.
+      // Delay the section scroll until after the menu close animation completes.
+      window.setTimeout(() => scrollToSection(sectionId), scrollDelayMs)
+    },
+    [isMenuOpen, scrollToSection],
+  )
 
   useEffect(() => {
     const sections = navLinks
@@ -41,10 +69,25 @@ function Navbar() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!isMenuOpen) return
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setIsMenuOpen(false)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [isMenuOpen])
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-[#1a2334]/80 bg-[#050c18]/85 backdrop-blur-xl">
+    <header ref={headerRef} className="fixed inset-x-0 top-0 z-50 border-b border-[#1a2334]/80 bg-[#050c18]/85 backdrop-blur-xl">
       <nav className="mx-auto flex h-[72px] w-[min(1260px,92%)] items-center justify-between">
-        <a href="#home" className="font-serif-display text-sm tracking-wide text-[#f5f7fb] md:text-base">
+        <a
+          href="#home"
+          onClick={(event) => handleNavClick(event, 'home')}
+          className="font-serif-display text-sm tracking-wide text-[#f5f7fb] md:text-base"
+        >
           Mohsan Ali Zafar
         </a>
 
@@ -55,7 +98,7 @@ function Navbar() {
           aria-expanded={isMenuOpen}
           aria-label="Toggle navigation menu"
         >
-          Menu
+          {isMenuOpen ? 'Close' : 'Menu'}
         </button>
 
         <ul className="hidden items-center gap-8 md:flex">
@@ -63,6 +106,7 @@ function Navbar() {
             <li key={link.id}>
               <a
                 href={link.href}
+                onClick={(event) => handleNavClick(event, link.id)}
                 className={`text-[10px] uppercase tracking-[0.22em] transition ${
                   activeSection === link.id ? 'text-[#f0d8a8]' : 'text-[#93a2bd] hover:text-[#f2f5fa]'
                 }`}
@@ -78,19 +122,19 @@ function Navbar() {
         {isMenuOpen ? (
           <Motion.div
             key="mobile-menu"
-            className="overflow-hidden md:hidden"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="md:hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <ul className="mx-auto w-[min(1260px,92%)] space-y-4 border-t border-[#1d2737] py-5">
+            <ul className="mx-auto w-[min(1260px,92%)] space-y-2 border-t border-[#1d2737] py-5">
               {navLinks.map((link) => (
                 <li key={link.id}>
                   <a
                     href={link.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`block text-[10px] uppercase tracking-[0.2em] transition ${
+                    onClick={(event) => handleNavClick(event, link.id)}
+                    className={`block rounded-sm py-3 text-sm font-semibold uppercase tracking-[0.22em] transition ${
                       activeSection === link.id ? 'text-[#f2d9a4]' : 'text-[#b0b9cc]'
                     }`}
                   >
