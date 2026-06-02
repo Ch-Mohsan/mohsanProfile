@@ -29,17 +29,33 @@ function GitHubIcon() {
   )
 }
 
+function WhatsAppIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 fill-current">
+      <path d="M20.52 3.5A11 11 0 0 0 3.2 16.98L2 22l5.17-1.35A11 11 0 0 0 20.52 3.5Zm-8.48 17a9 9 0 0 1-4.58-1.25l-.33-.2-3.07.8.82-2.98-.22-.35A9 9 0 1 1 12.04 20.5Zm5.12-6.7c-.28-.14-1.64-.8-1.9-.89-.26-.1-.45-.14-.64.14-.19.28-.73.89-.9 1.08-.17.19-.33.21-.61.07-.28-.14-1.2-.44-2.28-1.4-.84-.75-1.4-1.69-1.56-1.97-.16-.28-.02-.43.12-.57.12-.12.28-.33.42-.5.14-.17.19-.28.28-.47.1-.19.05-.35-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.46-.48-.64-.49h-.54c-.19 0-.5.07-.76.35-.26.28-1 1-1 2.43 0 1.43 1.03 2.81 1.17 3 .14.19 2.02 3.08 4.9 4.31.68.29 1.2.47 1.61.6.68.22 1.3.19 1.79.12.55-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.26-.19-.54-.33Z" />
+    </svg>
+  )
+}
+
 const contactOptions = [
   { label: 'Gmail', href: gmailComposeUrl, icon: MailIcon },
   { label: 'LinkedIn', href: personalInfo.linkedin, icon: LinkedInIcon },
   { label: 'GitHub', href: personalInfo.github, icon: GitHubIcon },
+  personalInfo.whatsapp
+    ? {
+        label: 'WhatsApp',
+        href: personalInfo.whatsapp,
+        icon: WhatsAppIcon,
+        value: "Let's chat",
+      }
+    : null,
   {
     label: 'CV',
     href: '/mohsan%27s-cv.pdf',
     value: 'Download CV',
     download: 'Mohsan-Ali-Zafar-CV.pdf',
   },
-]
+].filter(Boolean)
 
 function Contact({ compact = false }) {
   const { duration, delay } = useResponsiveMotion()
@@ -73,6 +89,7 @@ function Contact({ compact = false }) {
           {contactOptions.map((link) => {
             const isExternal = link.href.startsWith('http') || link.href.startsWith('mailto:')
             const isDownload = Boolean(link.download)
+            const isTextButton = Boolean(link.value)
 
             return (
               <li key={link.label}>
@@ -84,12 +101,14 @@ function Contact({ compact = false }) {
                   aria-label={link.label}
                   title={link.label}
                   className={`inline-flex items-center justify-center rounded-full border transition hover:border-[#be9e61] hover:text-[#f0d8a8] ${
-                    isDownload
-                      ? 'border-[#be9e61]/70 bg-[#be9e61] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#101722] hover:bg-[#d6b57a]'
+                    isTextButton
+                      ? isDownload
+                        ? 'border-[#be9e61]/70 bg-[#be9e61] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#101722] hover:bg-[#d6b57a]'
+                        : 'border-[#be9e61]/55 bg-[#071427]/60 px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#f0d8a8] hover:bg-[#071427]/80'
                       : 'border-[#be9e61]/55 bg-[#071427]/60 p-4 text-[#f0d8a8]'
                   }`}
                 >
-                  {isDownload ? link.value : <link.icon />}
+                  {isTextButton ? link.value : <link.icon />}
                   <span className="sr-only">{link.label}</span>
                 </a>
               </li>

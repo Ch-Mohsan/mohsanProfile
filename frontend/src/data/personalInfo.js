@@ -5,4 +5,5 @@ export const personalInfo = {
   email: 'mohsanz405@gmail.com',
   github: 'https://github.com/Ch-Mohsan',
   linkedin: 'https://www.linkedin.com/in/mohsan-ali-zafar-21169136b',
+  whatsapp: 'https://wa.me/923077367050',
 }
