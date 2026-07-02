@@ -1,39 +1,39 @@
 export const projects = [
   {
-    title: 'Think Code Attendance System',
+    title: 'Botcommerce Messenger-Based E Commerce SaaS Platform',
     description:
-      'A web-based attendance management system that allows users to mark attendance, view attendance records, and generate reports for efficient attendance tracking.',
+      'Developed and structured a subscription-based messenger commerce platform that enables businesses to launch Telegram, WhatsApp, and web-based stores with minimal setup. The system includes tiered pricing, scalable product limits, analytics tools, and integrated payment and delivery solutions.',
     image:
-      'ATT.png',
+      'botcommerce.png',
     techStack: ['React', 'Node.js', 'MongoDB'],
-    liveLink: 'https://attendance-system-frontend-beta.vercel.app/dashboard',
-    githubLink: 'https://github.com/Ch-Mohsan/Attendance-System',
-    year: '2026',
+    liveLink: 'https://botcommerce.io/en',
+    githubLink: 'https://github.com/Ch-Mohsan/botcomerce',
+    year: '2025',
     status: 'Completed',
   },
   {
-    title: 'Car Booking System',
+    title: 'Baby K’tan E-Commerce Website for Ergonomic Baby Carrier Brand',
     description:
-      'A web-based vehicle booking platform that allows users to browse available cars, manage bookings, and streamline reservation workflows.',
+      'Baby K’tan is a product-focused e-commerce website built for a baby carrier brand that emphasizes simplicity, safety, and comfort. The goal of this project was to present a highly trusted consumer product in a way that feels clear, informative, and reassuring for parents.',
     image:
-      'car.png',
+      'babyKtan.png',
     techStack: ['React', 'Node.js', 'MongoDB'],
-    liveLink: 'https://car-app-frontend-rho.vercel.app/',
-    githubLink: 'https://github.com/Ch-Mohsan/carApp',
+    liveLink: 'https://babyktan.com/',
+    githubLink: 'https://github.com/Ch-Mohsan/BabyKtan',
     year: '2025',
     status: 'Completed',
   },
  
   {
-    title: 'Clinic Appointment System',
+    title: 'AFTRDRK Cybercrime Intelligence Blog and Podcast Website',
     description:
-      'A full-stack system for managing patient appointments, doctor schedules, and clinic operations with a clean and efficient interface.',
+      'AFTRDRK is a modern content platform focused on cybercrime research, analysis, and reporting. I designed and developed this website to reflect a bold, no-fluff brand identity centered around clarity and purpose.',
     image:
-      'doctor.png',
+      'aftrdrk.png',
     techStack: ['React', 'Node.js', 'Express', 'MongoDB'],
-    liveLink: '#',
-    githubLink: 'https://github.com/duamehmood/Mediconnect',
-    year: '2025',
+    liveLink: 'https://aftrdrk.netlify.app/',
+    githubLink: 'https://github.com/Ch-Mohsan/aftrdrk',
+    year: '2026',
     status: 'Completed',
   },
   {
